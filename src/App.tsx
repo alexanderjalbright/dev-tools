@@ -1,8 +1,41 @@
 import React, { useState } from "react";
 import "./App.css";
-import TabButton, { ITab, HandleTabClick } from "./components/TabButton";
+import TabButton, {
+  ITabConstants,
+  HandleTabClick,
+} from "./components/TabButton";
 
-interface Tabs extends Array<ITab> {}
+interface ITabs {
+  [key: string]: ITabConstants;
+}
+
+type TabMapper = (
+  tabs: ITabs,
+  handleTabClick: HandleTabClick,
+  selectedTab: string
+) => JSX.Element[];
+
+const TABS: ITabs = {
+  TIME: {
+    name: "Time",
+    activeColorClass: "active-blue",
+    inactiveColorClass: "inactive-blue",
+  },
+  TEXT_CONVERTER: {
+    name: "Text Converter",
+    activeColorClass: "active-purple",
+    inactiveColorClass: "inactive-purple",
+  },
+};
+
+const tabMapper: TabMapper = (tabs, handleTabClick, selectedTab) => {
+  return Object.keys(tabs).map((key) => (
+    <TabButton
+      key={`tab-${key}`}
+      {...{ tabDetails: tabs[key], handleTabClick, selectedTab }}
+    />
+  ));
+};
 
 const App = () => {
   const [selectedTab, setSelectedTab] = useState("Time");
@@ -10,31 +43,9 @@ const App = () => {
   const handleTabClick: HandleTabClick = (e) => {
     setSelectedTab(e.currentTarget.name);
   };
-
-  const tabs: Tabs = [
-    {
-      name: "Time",
-      selectedTab,
-      activeColor: "active-blue",
-      inactiveColor: "inactive-blue",
-      handleTabClick,
-    },
-    {
-      name: "Text Converter",
-      selectedTab,
-      activeColor: "active-purple",
-      inactiveColor: "inactive-purple",
-      handleTabClick,
-    },
-  ];
-
   return (
     <div className="App">
-      <>
-        {tabs.map((tab, index) => (
-          <TabButton key={`tab-${index}`} {...tab} />
-        ))}
-      </>
+      <>{tabMapper(TABS, handleTabClick, selectedTab)}</>
     </div>
   );
 };
