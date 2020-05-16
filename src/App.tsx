@@ -1,26 +1,42 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import TabButton, { ITab, HandleTabClick } from "./components/TabButton";
 
-function App() {
+interface Tabs extends Array<ITab> {}
+
+const App = () => {
+  const [selectedTab, setSelectedTab] = useState("Time");
+
+  const handleTabClick: HandleTabClick = (e) => {
+    setSelectedTab(e.currentTarget.name);
+  };
+
+  const tabs: Tabs = [
+    {
+      name: "Time",
+      selectedTab,
+      activeColor: "active-blue",
+      inactiveColor: "inactive-blue",
+      handleTabClick,
+    },
+    {
+      name: "Text Converter",
+      selectedTab,
+      activeColor: "active-purple",
+      inactiveColor: "inactive-purple",
+      handleTabClick,
+    },
+  ];
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <>
+        {tabs.map((tab, index) => (
+          <TabButton key={`tab-${index}`} {...tab} />
+        ))}
+      </>
     </div>
   );
-}
+};
 
 export default App;

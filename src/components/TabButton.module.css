@@ -1,0 +1,17 @@
+.tab {
+  padding: 1rem 2rem;
+  border: none;
+  cursor: pointer;
+}
+
+.active {
+  color: #000000;
+}
+
+.inactive {
+  color: #999;
+}
+
+.inactive:hover {
+  color: #ccc;
+}
