@@ -1,5 +1,5 @@
-import React from "react";
+import React from 'react'
 
 export default function TextConverter() {
-  return <div>TextConverter</div>;
+    return <div>TextConverter</div>
 }

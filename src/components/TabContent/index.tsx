@@ -1,13 +1,13 @@
-import React from "react";
+import React from 'react'
 
 interface ITabContent {
-  activeColorClass: string;
-  children: JSX.Element;
+    activeColorClass: string
+    children: JSX.Element
 }
 
 export default function TextConverter({
-  activeColorClass,
-  children,
+    activeColorClass,
+    children,
 }: ITabContent) {
-  return <div className={activeColorClass}>{children}</div>;
+    return <div className={activeColorClass}>{children}</div>
 }
