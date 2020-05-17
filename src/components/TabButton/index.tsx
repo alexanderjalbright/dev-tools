@@ -1,33 +1,28 @@
 import React from "react";
-import "../App.css";
 import styles from "./TabButton.module.css";
 
 export type HandleTabClick = (
   event: React.MouseEvent<HTMLButtonElement>
 ) => void;
 
-export interface ITabConstants {
+interface ITabButton {
   name: string;
   activeColorClass: string;
   inactiveColorClass: string;
-}
-
-interface ITabButton {
-  tabDetails: ITabConstants;
-  selectedTab: string;
+  isSelected: boolean;
   handleTabClick: HandleTabClick;
 }
 
 export default function TabButton({
-  tabDetails,
-  selectedTab,
+  name,
+  activeColorClass,
+  inactiveColorClass,
+  isSelected,
   handleTabClick,
 }: ITabButton) {
-  const { name, activeColorClass, inactiveColorClass } = tabDetails;
-  const backgroundColor =
-    selectedTab === name
-      ? `${styles.active} ${activeColorClass}`
-      : `${styles.inactive} ${inactiveColorClass}`;
+  const backgroundColor = isSelected
+    ? `${styles.active} ${activeColorClass}`
+    : `${styles.inactive} ${inactiveColorClass}`;
   return (
     <button
       title={name}
