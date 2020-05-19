@@ -1,0 +1,88 @@
+.activeBlue {
+    background: #0880cf;
+}
+
+.inactiveBlue {
+    background: #005791;
+}
+
+.activePurple {
+    background: #8400ff;
+}
+
+.inactivePurple {
+    background: #570091;
+}
+
+.menuButton {
+    background: #222;
+    padding: 1rem 2rem;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    margin: 0;
+
+    --bar-color: #ddd;
+}
+
+.menuButton:hover {
+    --bar-color: #fff;
+}
+
+.menuButton:active {
+    --bar-color: #bbb;
+}
+
+.menuButtonBar {
+    width: 1.5rem;
+    height: calc(1.5rem / 7);
+    background: var(--bar-color);
+    margin: calc(1.5rem / 6) 0;
+}
+
+.expandTabsButton {
+    background: #222;
+    padding: 1rem 2rem;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    margin: 0;
+
+    --dot-color: #ddd;
+    display: none;
+}
+
+.expandTabsButton:hover {
+    --dot-color: #fff;
+}
+
+.expandTabsButton:active {
+    --dot-color: #bbb;
+}
+
+.expandTabsDot {
+    width: calc(1.5rem / 7);
+    height: calc(1.5rem / 7);
+    background: var(--dot-color);
+    margin: calc(1.5rem / 6) 0;
+}
+
+.flexGrow {
+    flex-grow: 1;
+    background: #222;
+}
+
+.tabsHorizontal {
+    display: flex;
+}
+
+.tabsVertical {
+    display: flex;
+    flex-direction: column;
+}
+
+@media only screen and (max-width: 600px) {
+    .expandTabsButton {
+        display: block;
+    }
+}

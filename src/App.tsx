@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
-import './App.css'
 import TabButton, { HandleTabClick } from './components/TabButton'
 import Time from './components/TabContent/Time'
 import TextConverter from './components/TabContent/TextConverter'
 import TabContent from './components/TabContent'
+import styles from './App.module.css'
+import useWindowWidth from './hooks/useWindowWidth'
 
 interface ITabs {
     [key: string]: {
@@ -15,13 +16,13 @@ interface ITabs {
 
 const TABS: ITabs = {
     Time: {
-        activeColorClass: 'active-blue',
-        inactiveColorClass: 'inactive-blue',
+        activeColorClass: styles.activeBlue,
+        inactiveColorClass: styles.inactiveBlue,
         Content: Time,
     },
     'Text Converter': {
-        activeColorClass: 'active-purple',
-        inactiveColorClass: 'inactive-purple',
+        activeColorClass: styles.activePurple,
+        inactiveColorClass: styles.inactivePurple,
         Content: TextConverter,
     },
 }
@@ -53,6 +54,8 @@ const tabMapper: TabButtonMapper = (tabs, handleTabClick, selectedTab) => {
 const App = () => {
     const firstTab = Object.keys(TABS)[0]
     const [selectedTab, setSelectedTab] = useState<string>(firstTab)
+    const [isTabsExpanded, setIsTabsExpanded] = useState<boolean>(false)
+    const windowWidth = useWindowWidth()
 
     const handleTabClick: HandleTabClick = (e) => {
         setSelectedTab(e.currentTarget.name)
@@ -61,7 +64,33 @@ const App = () => {
     const { Content, activeColorClass } = TABS[selectedTab]
     return (
         <div className="App">
-            <>{tabMapper(TABS, handleTabClick, selectedTab)}</>
+            <div style={{ display: 'flex' }}>
+                <button className={styles.menuButton}>
+                    <div className={styles.menuButtonBar}></div>
+                    <div className={styles.menuButtonBar}></div>
+                    <div className={styles.menuButtonBar}></div>
+                </button>
+
+                {windowWidth > 600 ? (
+                    <div className={styles.tabsHorizontal}>
+                        {tabMapper(TABS, handleTabClick, selectedTab)}
+                    </div>
+                ) : null}
+                <div className={styles.flexGrow}></div>
+                <button
+                    className={styles.expandTabsButton}
+                    onClick={() => setIsTabsExpanded(!isTabsExpanded)}
+                >
+                    <div className={styles.expandTabsDot}></div>
+                    <div className={styles.expandTabsDot}></div>
+                    <div className={styles.expandTabsDot}></div>
+                </button>
+            </div>
+            {windowWidth <= 600 && isTabsExpanded ? (
+                <div className={styles.tabsVertical}>
+                    {tabMapper(TABS, handleTabClick, selectedTab)}
+                </div>
+            ) : null}
             <TabContent {...{ activeColorClass }}>
                 <Content />
             </TabContent>
